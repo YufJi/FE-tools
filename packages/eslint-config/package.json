@@ -7,6 +7,10 @@
   "files": [
     "lib"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:YufJi/FE-tools.git"
+  },
   "author": "YufJi",
   "license": "MIT",
   "dependencies": {

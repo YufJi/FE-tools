@@ -73,7 +73,8 @@
     "node": ">=10"
   },
   "repository": {
-    "url": ""
+    "type": "git",
+    "url": "git@github.com:YufJi/FE-tools.git"
   },
   "author": "YufJi"
 }

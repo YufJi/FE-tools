@@ -6,6 +6,10 @@
   "scripts": {
     "update:babel": "npx npm-check-updates '/babel/' -u"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:YufJi/FE-tools.git"
+  },
   "author": "YufJ",
   "license": "MIT",
   "files": [
