@@ -1,11 +1,11 @@
-<h1 align="center">Welcome to babel-plugin-curiosity 👋</h1>
+<h1 align="center">Welcome to babel-preset-curiosity 👋</h1>
 
 > babel7 preset
 
 ## Install
 
 ```sh
-npm i babel-plugin-curiosity
+npm i babel-preset-curiosity
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ npm i babel-plugin-curiosity
 // .babelrc
 {
   "presets": [
-    ["curiosity", {
+    ["babel-preset-curiosity", {
       "env": {},
       "react": {},
       "transformRuntime": {},
