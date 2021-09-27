@@ -1,6 +1,6 @@
 {
   "name": "curiosity-bundler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unique webpack wrapper for curiosity.",
   "bin": {
     "curiosity-bundler": "./bin/index.js"
@@ -53,9 +53,8 @@
     "yargs-parser": "18.1.3"
   },
   "devDependencies": {
-    "curiosity-builder": "0.1.x"
+    "curiosity-builder": "^0.1.1"
   },
-  "peerDependencies": {},
   "license": "MIT",
   "files": [
     "bin",
