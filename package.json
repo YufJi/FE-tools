@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "postinstall": "husky install",
+    "postinstall": "lerna bootstrap",
     "build:package": "lerna run build",
     "lint": "eslint \"packages/**/src/*.js\" --fix",
     "pub": "lerna version && lerna publish from-package"
@@ -13,7 +13,7 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
-    "husky": "^7.0.2",
+    "husky": "^4.x",
     "lerna": "^3.22.1"
   }
 }
