@@ -1,6 +1,9 @@
 module.exports = {
   build: {
     target: 'node',
-    cjs: { type: 'babel' },
+    cjs: {
+      type: 'babel',
+      minify: true,
+    },
   },
 };

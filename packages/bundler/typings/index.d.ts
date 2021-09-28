@@ -18,7 +18,6 @@ interface Config {
   cssLoaderOptions?: object;
   cssModulesExcludes?: Array<any>;
   cssnano?: object;
-  cssPublicPath?: string;
   cssModulesTypescriptLoader?: boolean;
   define?: object;
   devServer?: WebpackDevServer.Configuration; 

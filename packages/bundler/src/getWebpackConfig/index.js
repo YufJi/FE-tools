@@ -4,7 +4,6 @@ import { EOL } from 'os';
 import assert from 'assert';
 import { isPlainObject } from 'lodash';
 import webpack from 'webpack';
-import WebpackBar from 'webpackbar';
 import ProgressPlugin from 'progress-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -207,14 +206,6 @@ function getWebpackConfig(opts) {
   webpackConfig.plugins.push(new webpack.DefinePlugin(resolveDefine(opts)));
 
   // plugins -> progress bar
-  // if (process.platform === 'win32') {
-  //   webpackConfig.plugins.push(new webpack.ProgressPlugin());
-  // } else {
-  //   webpackConfig.plugins.push(new WebpackBar({
-  //     color: 'green',
-  //     reporters: ['fancy'],
-  //   }));
-  // }
   webpackConfig.plugins.push(new ProgressPlugin());
 
   // plugins -> analyze

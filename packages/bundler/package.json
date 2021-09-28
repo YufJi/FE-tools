@@ -49,7 +49,6 @@
     "webpack-bundle-analyzer": "4.4.2",
     "webpack-dev-server": "4.3.0",
     "webpack-manifest-plugin": "4.0.2",
-    "webpackbar": "5.0.0-3",
     "yargs-parser": "18.1.3"
   },
   "devDependencies": {

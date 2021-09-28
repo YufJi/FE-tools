@@ -51,7 +51,5 @@ export default {
       ascii_only: true,
     },
   },
-  sourceMap: false,
-  cache: true,
   parallel: true,
 };

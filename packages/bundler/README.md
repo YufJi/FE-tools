@@ -1,6 +1,6 @@
 # curiosity-bundler
 
-Shallow packaging webpack.
+Shallow packaging webpack5.
 
 # Usage
 
@@ -35,7 +35,7 @@ export default (env): IConfig => {
     },
     hash: !isDev,
     webpack(config) {
-      // 配置你的webpack-chain config
+      // webpack config
     },
     devServer: {
       port: 8000,

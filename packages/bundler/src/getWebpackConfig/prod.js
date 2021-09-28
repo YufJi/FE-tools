@@ -60,7 +60,6 @@ export default function (webpackConfig, opts) {
 
     const minimizerOptions = mergeConfig({
       ...terserOptions,
-      sourceMap: !!opts.devtool,
     }, opts.terserJSOptions);
 
     webpackConfig.optimization.minimizer = [

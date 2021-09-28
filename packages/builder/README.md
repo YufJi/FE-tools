@@ -17,7 +17,7 @@ curiosity-builder build
 ## Config
 
 ```js
-// .hulkrc.js
+// curiosity.config.js
 
 module.exports = {
   entry: [] || '', // 仅rollup才适用

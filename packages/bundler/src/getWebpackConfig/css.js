@@ -1,5 +1,3 @@
-import { extname } from 'path';
-// import autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const DEFAULT_BROWSERS = [
@@ -51,10 +49,8 @@ export default function (webpackConfig, opts) {
 
     if (!opts.ssr) {
       rule.use.push({
-        loader: require('mini-css-extract-plugin').loader,
-        options: {
-          publicPath: isDev ? '/' : opts.cssPublicPath,
-        },
+        loader: MiniCssExtractPlugin.loader,
+        options: {},
       });
     }
     // https://github.com/webpack-contrib/mini-css-extract-plugin/issues/90
