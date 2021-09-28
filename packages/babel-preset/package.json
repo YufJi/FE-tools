@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-curiosity",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "babel7 preset",
   "main": "index.js",
   "scripts": {
