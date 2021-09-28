@@ -3,8 +3,7 @@ import WebpackDevServer from 'webpack-dev-server';
 import chalk from 'chalk';
 import { isPlainObject } from 'lodash';
 import webpack from 'webpack';
-import prepareUrls from './prepareUrls';
-import send, { STARTING, DONE, ERROR, UPDATE_PORT } from './send';
+import send, { STARTING, ERROR, UPDATE_PORT } from './send';
 
 const noop = () => {};
 
