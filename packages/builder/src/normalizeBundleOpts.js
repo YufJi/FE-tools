@@ -1,11 +1,11 @@
 /* eslint-disable func-names */
-const { cloneDeep, merge } = require('lodash');
+import { cloneDeep, merge } from 'lodash';
 
 function stripDotSlashPrefix(path) {
   return path.replace(/^\.\//, '');
 }
 
-module.exports = function (entry, opts) {
+export default function (entry, opts) {
   let clone = cloneDeep(opts);
   const stripedEntry = stripDotSlashPrefix(entry);
   if (clone.overridesByEntry) {
@@ -21,4 +21,4 @@ module.exports = function (entry, opts) {
     delete clone.overridesByEntry;
   }
   return clone;
-};
+}

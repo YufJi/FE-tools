@@ -1,22 +1,22 @@
 /* eslint-disable func-names */
-const { basename, extname, join } = require('path');
-const { terser } = require('rollup-plugin-terser');
-const babel = require('rollup-plugin-babel');
-const replace = require('rollup-plugin-replace');
-const json = require('rollup-plugin-json');
-const nodeResolve = require('rollup-plugin-node-resolve');
-const typescript = require('rollup-plugin-typescript2');
-const commonjs = require('rollup-plugin-commonjs');
-const postcss = require('rollup-plugin-postcss');
-const NpmImport = require('less-plugin-npm-import');
-const { camelCase } = require('lodash');
-const tempDir = require('temp-dir');
-const autoprefixer = require('autoprefixer');
-const svgr = require('@svgr/rollup').default;
+import { basename, extname, join } from 'path';
+import { terser } from 'rollup-plugin-terser';
+import commonjs from '@rollup/plugin-commonjs';
+import babel from '@rollup/plugin-babel';
+import replace from '@rollup/plugin-replace';
+import json from '@rollup/plugin-json';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
+import postcss from 'rollup-plugin-postcss';
+import NpmImport from 'less-plugin-npm-import';
+import { camelCase } from 'lodash';
+import tempDir from 'temp-dir';
+import autoprefixer from 'autoprefixer';
+import svgr from '@svgr/rollup';
 
-const getBabelConfig = require('./getBabelConfig');
+import getBabelConfig from './getBabelConfig';
 
-module.exports = function (opts) {
+export default function (opts) {
   const { type, entry, cwd, importLibToEs, bundleOpts } = opts;
   const {
     umd,
@@ -32,15 +32,12 @@ module.exports = function (opts) {
     extraBabelPlugins = [],
     autoprefixer: autoprefixerOpts,
     include = /node_modules/,
-    namedExports,
     runtimeHelpers: runtimeHelpersOpts,
     replace: replaceOpts,
     nodeVersion,
     typescriptOpts,
     nodeResolveOpts = {},
-    disableTypeCheck,
     lessInRollupMode = {},
-    sassInRollupMode = {},
   } = bundleOpts;
   const entryExt = extname(entry);
   const name = file || basename(entry, entryExt);
@@ -64,7 +61,7 @@ module.exports = function (opts) {
       runtimeHelpers,
       nodeVersion,
     }),
-    runtimeHelpers,
+    babelHelpers: 'bundled',
     exclude: /\/node_modules\//,
     babelrc: false,
     // ref: https://github.com/rollup/rollup-plugin-babel#usage
@@ -117,12 +114,6 @@ module.exports = function (opts) {
             ...lessInRollupMode,
           },
         ],
-        [
-          'sass',
-          {
-            ...sassInRollupMode,
-          },
-        ],
       ],
       plugins: [
         autoprefixer(autoprefixerOpts),
@@ -138,25 +129,8 @@ module.exports = function (opts) {
     ...(isTypeScript
       ? [
         typescript({
-          // @see https://github.com/ezolenko/rollup-plugin-typescript2/issues/105
-          objectHashIgnoreUnknownHack: true,
-          cacheRoot: `${tempDir}/.rollup_plugin_typescript2_cache`,
-          // TODO: 支持往上找 tsconfig.json
-          // 比如 lerna 的场景不需要每个 package 有个 tsconfig.json
+          cacheDir: `${tempDir}/.rollup.tscache`,
           tsconfig: join(cwd, 'tsconfig.json'),
-          tsconfigDefaults: {
-            compilerOptions: {
-              // Generate declaration files by default
-              declaration: true,
-            },
-          },
-          tsconfigOverride: {
-            compilerOptions: {
-              // Support dynamic import
-              target: 'esnext',
-            },
-          },
-          check: !disableTypeCheck,
           ...(typescriptOpts || {}),
         }),
       ]
@@ -203,6 +177,7 @@ module.exports = function (opts) {
         {
           input,
           output: {
+            exports: 'named',
             format,
             file: join(cwd, `dist/${(cjs && cjs.file) || name}.js`),
           },
@@ -215,7 +190,6 @@ module.exports = function (opts) {
       // Add umd related plugins
       plugins.push(commonjs({
         include,
-        namedExports,
       }));
 
       return [
@@ -260,4 +234,4 @@ module.exports = function (opts) {
     default:
       throw new Error(`Unsupported type ${type}`);
   }
-};
+}

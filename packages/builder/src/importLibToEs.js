@@ -1,6 +1,6 @@
-const { join, dirname } = require('path');
-const fs = require('fs');
-const signale = require('signale');
+import { join, dirname } from 'path';
+import fs from 'fs';
+import signale from 'signale';
 
 const cwd = process.cwd();
 
@@ -15,7 +15,7 @@ function replacePath(path) {
   }
 }
 
-function replaceLib() {
+export default function replaceLib() {
   return {
     visitor: {
       ImportDeclaration: replacePath,
@@ -23,5 +23,3 @@ function replaceLib() {
     },
   };
 }
-
-module.exports = replaceLib;

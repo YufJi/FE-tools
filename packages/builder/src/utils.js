@@ -1,12 +1,16 @@
 /* eslint-disable func-names */
-const { existsSync } = require('fs');
-const { join } = require('path');
+import { existsSync } from 'fs';
+import { join } from 'path';
 
-exports.getExistFile = function ({ cwd, files, returnRelative }) {
+function getExistFile({ cwd, files, returnRelative }) {
   for (const file of files) {
     const absFilePath = join(cwd, file);
     if (existsSync(absFilePath)) {
       return returnRelative ? file : absFilePath;
     }
   }
+}
+
+export {
+  getExistFile,
 };

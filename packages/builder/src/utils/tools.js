@@ -1,5 +1,4 @@
-
-const axios = require('axios');
+import axios from 'axios';
 
 function request({ url, params, method, isSpider = false }) {
   return axios({
@@ -14,7 +13,6 @@ function request({ url, params, method, isSpider = false }) {
   });
 }
 
-
-module.exports = {
+export {
   request,
 };

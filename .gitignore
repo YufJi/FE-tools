@@ -1,10 +1,13 @@
 node_modules/
+
 package-lock.json
+
 lerna-debug.log
+
 .DS_Store
 
 .tmp
 
-example/
+dist/
 
-packages/bundler/lib
+lib/

@@ -1,40 +1,39 @@
 /* eslint-disable func-names */
-const { join, extname, relative } = require('path');
-const { existsSync, readFileSync, statSync } = require('fs');
-const vfs = require('vinyl-fs');
-const signale = require('signale');
-const rimraf = require('rimraf');
-const through = require('through2');
-const slash = require('slash');
-const chokidar = require('chokidar');
-const babel = require('@babel/core');
-const gulpTs = require('gulp-typescript');
-const gulpLess = require('gulp-less');
-const gulpSass = require('gulp-sass');
-const gulpIf = require('gulp-if');
-const getBabelConfig = require('./getBabelConfig');
+import { join, extname, relative } from 'path';
+import { existsSync, readFileSync, statSync } from 'fs';
+import vfs from 'vinyl-fs';
+import signale from 'signale';
+import rimraf from 'rimraf';
+import through from 'through2';
+import slash from 'slash';
+import chokidar from 'chokidar';
+import babel from '@babel/core';
+import gulpTs from 'gulp-typescript';
+import gulpLess from 'gulp-less';
+import gulpIf from 'gulp-if';
+import getBabelConfig from './getBabelConfig';
 
-module.exports = async function (opts) {
+export default async function (opts) {
   const {
     cwd,
     rootPath,
     type,
     watch,
     importLibToEs,
-    bundleOpts: {
-      target = 'browser',
-      runtimeHelpers,
-      extraBabelPresets = [],
-      extraBabelPlugins = [],
-      browserFiles = [],
-      nodeFiles = [],
-      nodeVersion,
-      disableTypeCheck,
-      lessInBabelMode,
-      sassInBabelMode,
-      cjs,
-    },
+    bundleOpts,
   } = opts;
+  const {
+    target = 'browser',
+    runtimeHelpers,
+    extraBabelPresets = [],
+    extraBabelPlugins = [],
+    browserFiles = [],
+    nodeFiles = [],
+    nodeVersion,
+    disableTypeCheck,
+    lessInBabelMode,
+  } = bundleOpts;
+
   const srcPath = join(cwd, 'src');
   const targetDir = type === 'esm' ? 'es' : 'lib';
   const targetPath = join(cwd, targetDir);
@@ -55,7 +54,6 @@ module.exports = async function (opts) {
       browserFiles,
       nodeFiles,
       nodeVersion,
-      lazy: cjs && cjs.lazy,
     });
     if (importLibToEs && type === 'esm') {
       babelOpts.plugins.push(require.resolve('./importLibToEs'));
@@ -71,7 +69,7 @@ module.exports = async function (opts) {
 
   function getTSConfig() {
     const tsconfigPath = join(cwd, 'tsconfig.json');
-    const templateTsconfigPath = join(__dirname, './template/tsconfig.json');
+    const templateTsconfigPath = join(__dirname, '../template/tsconfig.json');
 
     if (existsSync(tsconfigPath)) {
       return JSON.parse(readFileSync(tsconfigPath, 'utf-8')).compilerOptions || {};
@@ -103,8 +101,6 @@ module.exports = async function (opts) {
       .pipe(gulpIf((f) => !disableTypeCheck && isTsFile(f.path), gulpTs(tsConfig)))
       // 处理less文件
       .pipe(gulpIf((f) => lessInBabelMode && /\.less$/.test(f.path), gulpLess({ ...lessInBabelMode })))
-      // 处理sass文件
-      .pipe(gulpIf((f) => sassInBabelMode && /\.s(a|c)ss$/.test(f.path), gulpSass({ ...sassInBabelMode })))
       .pipe(gulpIf(
         (f) => isTransform(f.path),
         through.obj((file, env, cb) => {
@@ -151,4 +147,4 @@ module.exports = async function (opts) {
       resolve();
     });
   });
-};
+}

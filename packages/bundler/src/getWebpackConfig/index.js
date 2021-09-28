@@ -226,20 +226,8 @@ function getWebpackConfig(opts) {
 
   // plugins -> copy
   if (opts.copy) {
-    const patterns = [];
-    makeArray(opts.copy).forEach((copy) => {
-      if (typeof copy === 'string') {
-        copy = {
-          from: join(opts.cwd, copy),
-          to: absOutputPath,
-        };
-      }
-
-      patterns.push(copy);
-    });
-
     webpackConfig.plugins.push(new CopyWebpackPlugin({
-      patterns,
+      patterns: opts.copy,
     }));
   }
 

@@ -23,7 +23,6 @@ module.exports = {
   entry: [] || '', // 仅rollup才适用
   cjs: {
     type: 'babel' || 'rollup',
-    lazy: Boolean, // 仅cjs才适用
     minify: Boolean,
   },
   importLibToEs: Boolean, // 仅esm才适用
@@ -34,7 +33,6 @@ module.exports = {
   browserFiles = ['src/xxxx'],
   nodeFiles = ['src/xxxx'],
   nodeVersion,
-  disableTypeCheck,
   lessInBabelMode: {},
   sassInBabelMode: {},
 

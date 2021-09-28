@@ -1,8 +1,8 @@
 /* eslint-disable func-names */
-const rollup = require('rollup');
-const signale = require('signale');
-const getRollupConfig = require('./getRollupConfig');
-const normalizeBundleOpts = require('./normalizeBundleOpts');
+import rollup from 'rollup';
+import signale from 'signale';
+import getRollupConfig from './getRollupConfig';
+import normalizeBundleOpts from './normalizeBundleOpts';
 
 async function build(entry, opts) {
   const { cwd, type, bundleOpts, importLibToEs } = opts;
@@ -37,7 +37,7 @@ async function build(entry, opts) {
   }
 }
 
-module.exports = async function (opts) {
+export default async function (opts) {
   if (Array.isArray(opts.entry)) {
     const { entry: entries } = opts;
     for (const entry of entries) {
@@ -46,4 +46,4 @@ module.exports = async function (opts) {
   } else {
     await build(opts.entry, opts);
   }
-};
+}

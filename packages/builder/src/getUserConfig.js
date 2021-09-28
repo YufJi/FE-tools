@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 
-const { getExistFile } = require('./utils');
+import { getExistFile } from './utils';
 
 function testDefault(obj) {
   return obj.default || obj;
@@ -10,7 +10,7 @@ const CONFIG_FILES = [
   'curiosity.config.js',
 ];
 
-module.exports = function ({ cwd }) {
+export default function ({ cwd }) {
   const configFile = getExistFile({
     cwd,
     files: CONFIG_FILES,
@@ -25,6 +25,8 @@ module.exports = function ({ cwd }) {
     console.warn(error.message);
     return {};
   }
-};
+}
 
-exports.CONFIG_FILES = CONFIG_FILES;
+export {
+  CONFIG_FILES,
+};

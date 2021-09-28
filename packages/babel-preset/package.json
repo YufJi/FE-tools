@@ -2,7 +2,7 @@
   "name": "babel-preset-curiosity",
   "version": "0.1.1",
   "description": "babel7 preset",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "update:babel": "npx npm-check-updates '/babel/' -u"
   },
@@ -13,7 +13,7 @@
   "author": "YufJ",
   "license": "MIT",
   "files": [
-    "lib"
+    "index.js"
   ],
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "7.14.5",

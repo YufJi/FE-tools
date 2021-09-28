@@ -14,7 +14,7 @@ interface Config {
   webpack?: {
     (config: webpack.Configuration): void;
   };
-  copy?: CopyPlugin.Options;
+  copy?: CopyPlugin.PatternsOptions;
   cssLoaderOptions?: object;
   cssModulesExcludes?: Array<any>;
   cssnano?: object;
@@ -23,16 +23,11 @@ interface Config {
   define?: object;
   devServer?: WebpackDevServer.Configuration; 
   devtool?: webpack.Options.Devtool;
-  disableCSSSourceMap?: boolean;
   disableCompress?: boolean;
-  disableDynamicImport?: boolean;
-  enableCSSModules?: boolean;
   entry: webpack.Entry | webpack.EntryFunc | string | string[];
   env?: object;
   externals?: webpack.ExternalsElement;
   extraBabelIncludes?: Array<any>;
-  extraBabelPlugins?: Array<any>;
-  extraBabelPresets?: Array<any>;
   extraPostCSSPlugins?: Array<any>;
   hash?: boolean;
   html?: {
@@ -43,7 +38,6 @@ interface Config {
   manifest?: object;
   outputPath?: string;
   publicPath?: string;
-  styleLoader?: object;
   ssr?: boolean;
   terserJSOptions?: TerserPlugin.TerserPluginOptions;
   tsLoaderOptions?: object;

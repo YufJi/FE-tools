@@ -1,7 +1,10 @@
 /* eslint-disable func-names */
 
-module.exports = function (opts) {
-  const { target, typescript, type, runtimeHelpers, filePath, browserFiles, nodeFiles, nodeVersion, lazy } = opts;
+export default function (opts) {
+  const {
+    target, typescript, type, runtimeHelpers, filePath, browserFiles, nodeFiles, nodeVersion,
+  } = opts;
+
   let isBrowser = target === 'browser';
   // rollup 场景下不会传入 filePath
   if (filePath) {
@@ -9,6 +12,7 @@ module.exports = function (opts) {
       if (nodeFiles.includes(filePath)) isBrowser = false;
     } else if (browserFiles.includes(filePath)) isBrowser = true;
   }
+
   const targets = isBrowser ? {
     chrome: '51',
     ie: '9',
@@ -18,31 +22,20 @@ module.exports = function (opts) {
     presets: [
       ...(typescript ? [require.resolve('@babel/preset-typescript')] : []),
       [require.resolve('@babel/preset-env'), {
+        loose: true,
         targets,
-        modules: type === 'esm' ? false : 'auto',
+        modules: type === 'esm' ? false : (type === 'cjs' && !isBrowser) ? 'cjs' : 'auto',
       }],
       ...(isBrowser ? [require.resolve('@babel/preset-react')] : []),
     ],
     plugins: [
-      ...((type === 'cjs' && lazy && !isBrowser)
-        ? [[require.resolve('@babel/plugin-transform-modules-commonjs'), {
-          lazy: true,
-        }]]
-        : []),
-      require.resolve('babel-plugin-react-require'),
-      require.resolve('@babel/plugin-syntax-dynamic-import'),
       require.resolve('@babel/plugin-proposal-export-default-from'),
-      require.resolve('@babel/plugin-proposal-export-namespace-from'),
       require.resolve('@babel/plugin-proposal-do-expressions'),
       [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
       [require.resolve('@babel/plugin-proposal-class-properties'), { loose: true }],
       ...(runtimeHelpers
         ? [[require.resolve('@babel/plugin-transform-runtime'), { ...runtimeHelpers, useESModules: isBrowser && (type === 'esm') }]]
         : []),
-      ...(process.env.COVERAGE
-        ? [require.resolve('babel-plugin-istanbul')]
-        : []
-      ),
     ],
   };
-};
+}

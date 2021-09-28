@@ -85,10 +85,10 @@ interface ObjectPattern {
   noErrorOnMissing?: boolean;
 }
 
-type CopyPluginOptions = string | ObjectPattern | ReadonlyArray<string | ObjectPattern>;
+type CopyPluginPatterns = ReadonlyArray<string | ObjectPattern>;
 
 namespace CopyPlugin {
-  type Options = CopyPluginOptions
+  type PatternsOptions = CopyPluginPatterns
 }
 
 export default CopyPlugin
