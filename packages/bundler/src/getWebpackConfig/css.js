@@ -25,16 +25,13 @@ export default function (webpackConfig, opts) {
         ...(opts.autoprefixer || {}),
       }],
       ...(opts.extraPostCSSPlugins ? opts.extraPostCSSPlugins : []),
-      ...(isDev || disableCompress
-        ? []
-        : [require.resolve('cssnano'), {
-          preset: ['default', opts.cssnano || {
-            mergeRules: false,
-            normalizeUrl: false,
-          }],
-        },
-        ]),
-    ],
+      (!isDev && !disableCompress) && [require.resolve('cssnano'), {
+        preset: ['default', opts.cssnano || {
+          mergeRules: false,
+          normalizeUrl: false,
+        }],
+      }],
+    ].filter(Boolean),
   };
   const cssModulesConfig = {
     modules: true,
