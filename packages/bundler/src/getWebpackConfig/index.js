@@ -115,8 +115,10 @@ function getWebpackConfig(opts) {
       options: {
         limit: opts.inlineLimit || 8192,
         name: 'static/[name].[hash:8].[ext]',
+        esModule: false,
       },
     }],
+    type: 'javascript/auto',
   };
 
   if (opts.urlLoaderIncludes) {
