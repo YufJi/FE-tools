@@ -4,7 +4,7 @@ import { EOL } from 'os';
 import assert from 'assert';
 import { isPlainObject } from 'lodash';
 import webpack from 'webpack';
-import ProgressPlugin from 'progress-webpack-plugin';
+import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -206,7 +206,7 @@ function getWebpackConfig(opts) {
   webpackConfig.plugins.push(new webpack.DefinePlugin(resolveDefine(opts)));
 
   // plugins -> progress bar
-  webpackConfig.plugins.push(new ProgressPlugin());
+  webpackConfig.plugins.push(new ProgressBarPlugin());
 
   // plugins -> analyze
   if (opts.analyzer) {
