@@ -4,6 +4,8 @@ package-lock.json
 
 lerna-debug.log
 
+yarn-error.log
+
 .DS_Store
 
 .tmp
@@ -11,3 +13,4 @@ lerna-debug.log
 dist/
 
 lib/
+

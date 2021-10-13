@@ -3,7 +3,7 @@ module.exports = {
     target: 'node',
     cjs: {
       type: 'babel',
-      minify: true,
+      minify: false,
     },
   },
 };
