@@ -6,7 +6,7 @@
     "postinstall": "lerna bootstrap",
     "build:package": "lerna run build",
     "lint": "eslint \"packages/**/src/*.js\" --fix",
-    "pub": "lerna version && lerna publish from-package"
+    "pub": "lerna run build && lerna version && lerna publish from-package"
   },
   "devDependencies": {
     "eslint": "^7.13.0",
