@@ -10,20 +10,17 @@ function getOutputPath(webpackConfig) {
 }
 
 function getErrorInfo(err, stats) {
-  if (!stats.stats) {
+  if (!stats) {
     return {
-      err: err || (stats.compilation && stats.compilation.errors && stats.compilation.errors[0]),
-      stats,
-      rawStats: stats,
+      err,
+      stats: err,
     };
   }
-  const [curStats] = stats.stats;
+
   return {
-    err:
-      err
-      || (curStats.compilation && curStats.compilation.errors && curStats.compilation.errors[0]),
-    stats: curStats,
-    rawStats: stats,
+    // eslint-disable-next-line max-len
+    err: err || (stats.compilation && stats.compilation.errors && stats.compilation.errors[0]),
+    stats,
   };
 }
 
@@ -45,7 +42,7 @@ export default function build(opts = {}) {
   webpack(webpackConfig, (err, stats) => {
     debug('build done');
 
-    if (err || stats.hasErrors()) {
+    if (err) {
       if (onFail) {
         onFail(getErrorInfo(err, stats));
       }

@@ -23,14 +23,7 @@ export default function (webpackConfig, opts) {
   webpackConfig.mode = 'production';
   webpackConfig.devtool = opts.devtool;
 
-  if (disableCompress) {
-    webpackConfig.output.pathinfo = true;
-    webpackConfig.optimization.namedModules = true;
-    webpackConfig.optimization.namedChunks = true;
-  }
-
   if (opts.hash) {
-    webpackConfig.output.fileName = '[name].[contenthash:8].js';
     webpackConfig.output.chunkFilename = '[name].[contenthash:8].js';
   }
 
@@ -54,6 +47,7 @@ export default function (webpackConfig, opts) {
   webpackConfig.optimization.noEmitOnErrors = true;
 
   if (disableCompress) {
+    webpackConfig.output.pathinfo = true;
     webpackConfig.optimization.minimize = false;
   } else {
     webpackConfig.plugins.push(new webpack.ids.HashedModuleIdsPlugin());
