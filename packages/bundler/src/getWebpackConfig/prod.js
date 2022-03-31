@@ -24,7 +24,8 @@ export default function (webpackConfig, opts) {
   webpackConfig.devtool = opts.devtool;
 
   if (opts.hash) {
-    webpackConfig.output.chunkFilename = '[name].[contenthash:8].js';
+    webpackConfig.output.filename = '[name].[chunkhash:8].js';
+    webpackConfig.output.chunkFilename = '[name].[chunkhash:8].js';
   }
 
   webpackConfig.performance = {
