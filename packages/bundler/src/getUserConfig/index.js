@@ -9,6 +9,8 @@ import send, { RESTART } from '../send';
 import { makeArray } from '../../lib/utils';
 import resolveConfigFile from './resolveConfigFile';
 
+const argv = yargsParser(process.argv.slice(2));
+
 const debug = require('debug')('webpack:getUserConfig');
 
 let devServer = null;
@@ -26,8 +28,8 @@ function restart(why = []) {
   });
 }
 
-export function watchConfigs(opts = {}) {
-  const { cwd = process.cwd(), configFile = 'curiosity.config' } = opts;
+function watchConfigs(opts = {}) {
+  const { cwd, configFile } = opts;
 
   const jsRCFile = resolve(cwd, `${configFile}.js`);
   const tsRCFile = resolve(cwd, `${configFile}.ts`);
@@ -35,17 +37,14 @@ export function watchConfigs(opts = {}) {
   return watch(USER_CONFIGS, [jsRCFile, tsRCFile]);
 }
 
-export function unwatchConfigs() {
-  unwatch(USER_CONFIGS);
-}
-
 export default async function getUserConfig(opts = {}) {
-  const {
-    cwd = process.cwd(),
-    configFile = 'curiosity.config',
-  } = opts;
+  const { cwd = process.cwd() } = opts;
 
-  // TODO: 支持数组的形式？\
+  let configFile = argv.config || 'curiosity.config.js';
+
+  // 去除后缀
+  configFile = configFile.replace(/\.(j|t)s$/, '');
+
   const jsRCFile = resolve(cwd, `${configFile}.js`);
   const tsRCFile = resolve(cwd, `${configFile}.ts`);
 
@@ -61,7 +60,6 @@ export default async function getUserConfig(opts = {}) {
     let jsRCFileConfig = require(jsRCFile);
     jsRCFileConfig = jsRCFileConfig.bundler || jsRCFileConfig;
     if (typeof jsRCFileConfig === 'function') {
-      const argv = yargsParser(process.argv.slice(2));
       config = jsRCFileConfig(argv.env || {}, argv);
     } else {
       config = jsRCFileConfig;
@@ -73,7 +71,6 @@ export default async function getUserConfig(opts = {}) {
     let tsRCFileConfig = await resolveConfigFile(tsRCFile);
     tsRCFileConfig = tsRCFileConfig.bundler || tsRCFileConfig;
     if (typeof tsRCFileConfig === 'function') {
-      const argv = yargsParser(process.argv.slice(2));
       config = tsRCFileConfig(argv.env || {}, argv);
     } else {
       config = tsRCFileConfig;
@@ -90,7 +87,7 @@ export default async function getUserConfig(opts = {}) {
   function watchConfigsAndRun(_devServer, watchOpts = {}) {
     devServer = _devServer;
 
-    const watcher = watchConfigs(opts);
+    const watcher = watchConfigs({ cwd, configFile });
     watcher.on('all', async () => {
       try {
         if (watchOpts.beforeChange) {
