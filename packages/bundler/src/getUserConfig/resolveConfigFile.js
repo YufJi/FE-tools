@@ -10,11 +10,16 @@ export default async function resolveConfigFile(resolvedPath) {
 
   const code = await bundleConfigFile(resolvedPath);
 
-  fs.writeFileSync(`${resolvedPath}.js`, code);
+  const tempPath = `${resolvedPath}.js`;
 
-  const userConfig = require(`${resolvedPath}.js`).default;
+  fs.writeFileSync(tempPath, code);
 
-  fs.unlinkSync(`${resolvedPath}.js`);
+  // no cache
+  delete require.cache[tempPath];
+
+  const userConfig = require(tempPath).default;
+
+  fs.unlinkSync(tempPath);
 
   debug(`TS config loaded in ${Date.now() - start}ms`);
 
