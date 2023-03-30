@@ -1,6 +1,6 @@
 {
   "name": "curiosity-bundler",
-  "version": "0.1.12",
+  "version": "0.1.13-alpha.0",
   "description": "Unique webpack wrapper for curiosity.",
   "bin": {
     "curiosity-bundler": "./bin/index.js"
