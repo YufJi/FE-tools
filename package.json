@@ -7,7 +7,6 @@
     "clean": "lerna clean"
   },
   "devDependencies": {
-    "@types/node": "^18.x",
     "eslint": "^7.13.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.20.0",
