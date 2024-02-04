@@ -1,0 +1,12 @@
+{
+  "extends": "../../base.config.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src"
+  ]
+}

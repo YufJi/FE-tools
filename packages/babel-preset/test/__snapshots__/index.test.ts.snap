@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Custom Babel Preset transforms ES6 code to ES5 as expected 1`] = `
+""use strict";
+
+var a = 1;
+var b = 2;"
+`;
+
+exports[`Custom Babel Preset transforms JSX to React.createElement as expected 1`] = `
+""use strict";
+
+/*#__PURE__*/React.createElement("div", null, "Hello, world!");"
+`;
