@@ -1,74 +1,45 @@
 {
   "name": "curiosity-bundler",
-  "version": "0.1.13-alpha.0",
+  "version": "0.2.0-alpha.2",
   "description": "Unique webpack wrapper for curiosity.",
   "bin": {
-    "curiosity-bundler": "./bin/index.js"
+    "curiosity-bundler": "./lib/index.js"
   },
-  "types": "./typings/index.d.ts",
+  "main": "./lib/index.js",
   "scripts": {
-    "build": "curiosity-builder",
-    "update:babel": "npx npm-check-updates '/babel/' -u"
+    "watch": "tsc -w",
+    "build": "tsc"
   },
   "dependencies": {
-    "@babel/core": "7.15.5",
-    "address": "1.1.0",
-    "assert": "1.4.1",
-    "autoprefixer": "10.3.6",
-    "babel-loader": "8.2.2",
-    "chalk": "2.4.2",
-    "chokidar": "3.0.2",
-    "copy-webpack-plugin": "9.0.1",
-    "css-loader": "6.3.0",
-    "css-modules-typescript-loader": "4.0.1",
-    "cssnano": "5.0.8",
-    "debug": "4.1.1",
-    "didyoumean": "1.2.1",
-    "file-loader": "^6.2.0",
-    "fs-extra": "9.0.1",
-    "glslify-loader": "2.0.0",
-    "html-webpack-plugin": "5.3.2",
-    "inquirer": "7.3.3",
+    "@babel/core": "^7.23.9",
+    "autoprefixer": "^10.4.17",
+    "babel-loader": "^9.1.3",
+    "commander": "^12.0.0",
+    "css-loader": "^6.10.0",
+    "esbuild-loader": "^4.0.3",
+    "html-webpack-plugin": "^5.6.0",
     "less": "^4.1.2",
-    "less-loader": "10.0.1",
-    "lodash": "4.17.13",
-    "mini-css-extract-plugin": "2.3.0",
-    "portfinder": "1.0.21",
-    "postcss": "8.3.8",
-    "postcss-flexbugs-fixes": "5.0.2",
-    "postcss-loader": "6.1.1",
-    "raw-loader": "4.0.2",
-    "rimraf": "2.6.3",
-    "style-loader": "3.3.0",
-    "terser-webpack-plugin": "5.2.4",
-    "ts-loader": "9.2.6",
-    "typescript": "4.4.3",
-    "url-loader": "4.1.1",
-    "webpack": "5.54.0",
-    "webpack-bundle-analyzer": "4.4.2",
-    "webpack-dev-server": "4.3.0",
-    "webpack-manifest-plugin": "4.0.2",
-    "yargs-parser": "18.1.3"
+    "less-loader": "^12.2.0",
+    "mini-css-extract-plugin": "^2.8.0",
+    "postcss": "^8.4.33",
+    "postcss-loader": "^8.1.0",
+    "signale": "^1.4.0",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "webpack": "^5.90.1",
+    "webpack-bundle-analyzer": "^4.10.1",
+    "webpack-dev-server": "^4.15.1"
   },
   "devDependencies": {
-    "curiosity-builder": "^0.1.6"
+    "@types/less": "^3.0.6",
+    "@types/node": "^18.x",
+    "@types/signale": "^1.4.7",
+    "typescript": "^5.3.3"
   },
   "license": "MIT",
-  "files": [
-    "bin",
-    "lib",
-    "typings",
-    "template",
-    "init.js",
-    "build.js",
-    "dev.js",
-    "fork.js",
-    "getWebpackConfig.js",
-    "getUserConfig.js",
-    "webpack.js"
-  ],
   "engines": {
-    "node": ">=10"
+    "node": ">=18",
+    "pnpm": ">=8"
   },
   "repository": {
     "type": "git",
