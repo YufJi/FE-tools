@@ -1,7 +1,7 @@
 import type { 
   ConfigAPI,
   SimpleCacheKey,
-} from "@babel/core";
+} from '@babel/core';
 
 import type { Options as EnvOptions  } from '@babel/preset-env';
 
@@ -50,6 +50,6 @@ export function preset(api: ConfigAPI, options: Options = {}) {
     presets,
     plugins,
   };
-};
+}
 
 export default preset;

@@ -10,16 +10,12 @@ Shallow packaging webpack5.
 npm i curiosity-bundler -D
 ```
 
-项目根目录新建curiosity.config.ts
+项目根目录新建bundler.config.ts
 ```js
 iimport path from 'path'
-import { IConfig } from 'curiosity-bundler'
+import { Config } from 'curiosity-bundler'
 
-export default (env): IConfig => {
-  const isDev = env.dev;
-  let publicPath = '/';
-
-  return {
+const config: Config = {
     entry: {
       index: path.join(__dirname, 'src/index.js'),
     },
@@ -28,21 +24,13 @@ export default (env): IConfig => {
         template: path.join(__dirname, 'index.html')
       }
     },
-    outputPath: path.join(__dirname, 'dist'),
-    publicPath,
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
-    hash: !isDev,
-    webpack(config) {
+    configWebpack(config) {
       // webpack config
     },
-    devServer: {
-      port: 8000,
-    },
-    analyzer: false,
-  }
 }
 
-
+export default config
 ```

@@ -1,82 +1,94 @@
-import path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import { WebpackConfiguration, WebpackConfigOptions } from '../types'
-import { makeArray } from '../utils'
-import { cssConfig } from './css'
-
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { WebpackConfiguration, WebpackConfigOptions } from '../types';
+import { makeArray } from '../utils';
+import { cssConfig } from './css';
+import { devConfig } from './dev';
+import { prodConfig } from './prod';
 
 export function webpackConfig(options: WebpackConfigOptions) {
-  const { cwd, config } = options;
+  const isDev = process.env.NODE_ENV === 'development';
+  const { root, config } = options;
   
   const {
-    context = cwd,
+    mode,
+    context = path.resolve(root),
     entry,
     html,
     publicPath,
     dest = 'dist',
     externals,
     alias,
-    extraBabelIncludes,
-    tsConfigFile = path.resolve(cwd, 'tsconfig.json'),
+    tsConfigFile = 'tsconfig.json',
+    extraTranspileIncludes,
     configWebpack,
+    analyzer,
+    extarRules = [],
+    extraPlugins = []
   } = config;
 
+  const tsLoaderOptions = {
+    transpileOnly: true,
+    configFile: path.resolve(root, tsConfigFile)
+  };
 
   const rules: WebpackConfiguration['module']['rules'] = [{
-    test: /\.mjs$/,
-    include: [cwd],
-    use: [require.resolve('babel-loader')],
-  }, {
-    test: /\.js$/,
-    include: [cwd],
-    exclude: [/node_modules/],
-    use: [require.resolve('babel-loader')],
-  }, {
-    test: /\.jsx$/,
-    include: [cwd],
-    use: [require.resolve('babel-loader')],
-  }, {
+    test: /\.m?jsx?$/,
+    include: [root],
+    use: {
+      loader: require.resolve('babel-loader'),
+    }
+  },  {
     test: /\.tsx?$/,
-    use: [
-      require.resolve('babel-loader'),
-      {
-        loader: require.resolve('ts-loader'),
-        options: {
-          transpileOnly: true,
-          configFile: tsConfigFile,
-        }
-      }
-    ]
-  }]
+    include: [root],
+    use: [{
+      loader: require.resolve('babel-loader'),
+    }, {
+      loader: require.resolve('ts-loader'),
+      options: tsLoaderOptions
+    }]
+  }];
 
-  if (extraBabelIncludes) {
+  if (extraTranspileIncludes?.length) {
     rules.push({
-      test: /\.jsx?$/,
-      include: makeArray(extraBabelIncludes),
-      use: [require.resolve('babel-loader')],
-    })
+      test: /\.(j|t)sx?$/,
+      include: makeArray(extraTranspileIncludes),
+      use: [{
+        loader: require.resolve('babel-loader'),
+      }, {
+        loader: require.resolve('ts-loader'),
+        options: tsLoaderOptions
+      }]
+    });
   }
 
-  const plugins = []
+  const plugins = [];
 
   if (html) {
     for (const key in html) {
-      const options = html[key]
+      const options = html[key];
       plugins.push(new HtmlWebpackPlugin({
         filename: `${key}.html`,
         ...options,
-      }))
+      }));
     }
   }
 
+  if (analyzer) {
+    plugins.push(new BundleAnalyzerPlugin());
+  }
+
   const webpackConfig: WebpackConfiguration = {
+    mode: mode ?? isDev ? 'development' : 'production',
     context,
     entry,
     output: {
       publicPath,
       filename: '[name].js',
       chunkFilename: '[name].js',
-      path: path.resolve(cwd, dest)
+      path: path.resolve(root, dest),
+      clean: true
     },
     externals,
     resolve: {
@@ -115,14 +127,28 @@ export function webpackConfig(options: WebpackConfigOptions) {
       }
     },
     module: {
-      rules,
-    }
-  }
+      rules: [
+        ...rules,
+        ...extarRules
+      ],
+    },
+    plugins: [
+      ...plugins,
+      ...extraPlugins
+    ],
+    stats: 'errors-only'
+  };
 
-  cssConfig(webpackConfig, options)
+  cssConfig(webpackConfig, options);
 
   if (configWebpack) {
     configWebpack(webpackConfig);
+  }
+
+  if (isDev) {
+    devConfig(webpackConfig, options);
+  } else {
+    prodConfig(webpackConfig, options);
   }
 
   return webpackConfig;

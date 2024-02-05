@@ -1,10 +1,13 @@
 {
   "extends": "../../base.config.json",
   "compilerOptions": {
+    "skipLibCheck": true,
     "outDir": "lib",
     "rootDir": "src",
     "baseUrl": ".",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "declaration": true
   },
   "include": [
     "src"
