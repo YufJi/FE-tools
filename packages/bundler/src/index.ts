@@ -21,7 +21,7 @@ program
   .option('-c, --config <config>', 'Path to the config file', 'bundler.config.js')
   .action((options) => {
     const cwd = process.cwd();
-    const root = path.resolve(cwd, options.root) || cwd;
+    const root = path.resolve(cwd, options.root || '');
     
     dev({
       root,
@@ -36,7 +36,7 @@ program
   .option('-c, --config <config>', 'Path to the config file', 'bundler.config.js')
   .action((options) => {
     const cwd = process.cwd();
-    const root = path.resolve(cwd, options.root) || cwd;
+    const root = path.resolve(cwd, options.root || '');
 
     build({
       root,

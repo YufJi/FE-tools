@@ -13,7 +13,7 @@ export function webpackConfig(options: WebpackConfigOptions) {
   
   const {
     mode,
-    context = path.resolve(root),
+    context = root,
     entry,
     html,
     publicPath,
