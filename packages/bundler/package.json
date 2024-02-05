@@ -3,8 +3,9 @@
   "version": "0.2.0-alpha.0",
   "description": "Unique webpack wrapper for curiosity.",
   "bin": {
-    "curiosity-bundler": "./bin/index.js"
+    "curiosity-bundler": "./lib/index.js"
   },
+  "main": "./lib/index.js",
   "scripts": {
     "watch": "tsc -w",
     "build": "tsc"
