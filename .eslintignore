@@ -1,6 +1,4 @@
 
-lib/
-
-dist/
-
-template/
+lib
+dist
+template
