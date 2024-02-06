@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import webpack from 'webpack';
+import * as webpack from 'webpack';
 
 import type { CliOptions } from './types';
 import { getUserConfig } from './getConfig';
