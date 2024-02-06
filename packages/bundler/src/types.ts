@@ -1,7 +1,7 @@
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
-import HtmlPlugin from 'html-webpack-plugin';
-import AutoPrefixer from 'autoprefixer';
+import * as webpack from 'webpack';
+import * as WebpackDevServer from 'webpack-dev-server';
+import * as HtmlPlugin from 'html-webpack-plugin';
+import * as AutoPrefixer from 'autoprefixer';
 
 export type WebpackConfiguration = webpack.Configuration;
 
