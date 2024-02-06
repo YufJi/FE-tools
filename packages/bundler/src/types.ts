@@ -3,30 +3,28 @@ import * as WebpackDevServer from 'webpack-dev-server';
 import * as HtmlPlugin from 'html-webpack-plugin';
 import * as AutoPrefixer from 'autoprefixer';
 
-export type WebpackConfiguration = webpack.Configuration;
-
-export interface CliOptions {
+interface CliOptions {
   root: string;
   config: string;
 }
 
-export interface WebpackConfigOptions {
+interface WebpackConfigOptions {
   root: string;
   config: Config;
 }
 
-export interface Config {
-  mode?: WebpackConfiguration['mode'];
-  context?: WebpackConfiguration['context'];
-  entry: WebpackConfiguration['entry'];
+interface Config {
+  mode?: webpack.Configuration['mode'];
+  context?: webpack.Configuration['context'];
+  entry: webpack.Configuration['entry'];
   html?: {
     [key: string]: HtmlPlugin.Options;
   },
-  alias?: WebpackConfiguration['resolve']['alias'],
-  externals?: WebpackConfiguration['externals'];
+  alias?: webpack.Configuration['resolve']['alias'],
+  externals?: webpack.Configuration['externals'];
   publicPath?: string;
   dest?: string;
-  configWebpack?: (config: WebpackConfiguration) => void;
+  configWebpack?: (config: webpack.Configuration) => void;
   extraTranspileIncludes?: Array<string | RegExp>;
   tsConfigFile?: string;
   hash?: boolean;
@@ -57,7 +55,7 @@ export interface Config {
   lessLoaderOptions?: object;
   autoprefixer?: AutoPrefixer.Options;
   extraPostCSSPlugins?: Array<any>;
-  devtool?: WebpackConfiguration['devtool'];
+  devtool?: webpack.Configuration['devtool'];
   analyzer?: boolean;
   extraPlugins?: webpack.WebpackPluginInstance[];
   extarRules?: webpack.RuleSetRule[];
@@ -94,3 +92,11 @@ type CssLoaderModules =
       | ((name: string) => string);
     exportOnlyLocals: boolean;
   };
+
+
+export type {
+  webpack,
+  CliOptions,
+  WebpackConfigOptions,
+  Config
+};
