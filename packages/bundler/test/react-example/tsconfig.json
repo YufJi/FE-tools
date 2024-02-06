@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ES6",
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,

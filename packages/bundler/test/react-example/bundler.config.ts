@@ -10,7 +10,8 @@ const config: Config = {
   },
   alias: {
     '@': './src',
-  }
+  },
+  analyzer: false
 };
 
 export default config;

@@ -23,7 +23,7 @@ program
   .command('dev')
   .description('Start the devServer')
   .option('--root <root>', 'Root directory')
-  .option('-c, --config <config>', 'Path to the config file', 'bundler.config.js')
+  .option('-c, --config <config>', 'Path to the config file')
   .action((options) => {
     const cwd = process.cwd();
     const root = path.resolve(cwd, options.root || '');
@@ -38,7 +38,7 @@ program
   .command('build')
   .description('Build the project')
   .option('--root <root>', 'Root directory')
-  .option('-c, --config <config>', 'Path to the config file', 'bundler.config.js')
+  .option('-c, --config <config>', 'Path to the config file')
   .action((options) => {
     const cwd = process.cwd();
     const root = path.resolve(cwd, options.root || '');
