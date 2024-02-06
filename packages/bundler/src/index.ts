@@ -2,10 +2,15 @@
 
 import * as path from 'path';
 import { Command } from 'commander';
+import * as webpack from 'webpack';
 import { dev } from './dev';
 import { build } from './build';
 
 export * from './types';
+
+export {
+  webpack
+};
 
 const program = new Command();
 

@@ -95,7 +95,6 @@ type CssLoaderModules =
 
 
 export type {
-  webpack,
   CliOptions,
   WebpackConfigOptions,
   Config
