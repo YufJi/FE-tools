@@ -12,30 +12,17 @@ export function dev(options: CliOptions) {
   process.env.NODE_ENV = 'development';
   Logger.start('Starting bundler in development mode');
 
-  const { root, config: configFile } = options;
+  const { root, config } = options;
 
-  const configFilePath = path.resolve(root, configFile);
-  if (!fs.existsSync(configFilePath)) {
-    Logger.error(`Config file not found: ${configFilePath}`);
-    process.exit(1);
-  }
-
-  const userConfig = getUserConfig(configFilePath);
-
-  const config = userConfig.map(config => webpackConfig({
-    root,
-    config,
-  }));
+  const userConfig = getUserConfig(config, root);
 
   const { devServer = {}, publicPath } = userConfig[0];
   const serverConfig: WebpackDevServer.Configuration = {
-    port: 8080,
     compress: true,
     headers: {
       'access-control-allow-origin': '*',
     },
     historyApiFallback: true,
-    host: '0.0.0.0',
     client: {
       overlay: true,
       progress: false,
@@ -50,16 +37,21 @@ export function dev(options: CliOptions) {
 
   WebpackDevServer.getFreePort(serverConfig.port, serverConfig.host)
     .then(port => {
-      const complier = webpack(config);
+      const complier = webpack(userConfig.map(config => webpackConfig({
+        root,
+        config,
+      })));
       const server = new WebpackDevServer(serverConfig, complier);
 
-      server.start().then(() => {
-        Logger.success('Development server started');
-      }).catch((error) => {
-        Logger.error('Failed to start the development server', error);
-      });
+      server.start()
+        .then(() => {
+          Logger.success('Development server started');
+        })
+        .catch((error) => {
+          Logger.error('Failed to start the development server', error);
+        });
     })
     .catch(error => {
-      Logger.error(error);
+      Logger.error('Failed to start the development server', error);
     });
 }

@@ -11,22 +11,14 @@ export function build(options: CliOptions) {
   process.env.NODE_ENV = 'production';
   Logger.start('Starting bundler in production mode');
 
-  const { root, config: configFile } = options;
+  const { root, config } = options;
 
-  const configFilePath = path.resolve(root, configFile);
-  if (!fs.existsSync(configFilePath)) {
-    Logger.error(`Config file not found: ${configFilePath}`);
-    process.exit(1);
-  }
+  const userConfig = getUserConfig(config, root);
 
-  const userConfig = getUserConfig(configFilePath);
-
-  const config = userConfig.map(config => webpackConfig({
+  webpack(userConfig.map(config => webpackConfig({
     root,
     config,
-  }));
-
-  webpack(config, (error, stats) => {
+  })), (error, stats) => {
     if (error) {
       Logger.error('Failed to build', error);
       process.exit(1);

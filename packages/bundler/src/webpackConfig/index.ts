@@ -1,7 +1,8 @@
 import * as path from 'path';
+import * as webpack from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import { WebpackConfiguration, WebpackConfigOptions } from '../types';
+import { WebpackConfigOptions } from '../types';
 import { makeArray } from '../utils';
 import { cssConfig } from './css';
 import { devConfig } from './dev';
@@ -33,7 +34,7 @@ export function webpackConfig(options: WebpackConfigOptions) {
     configFile: path.resolve(root, tsConfigFile)
   };
 
-  const rules: WebpackConfiguration['module']['rules'] = [{
+  const rules: webpack.Configuration['module']['rules'] = [{
     test: /\.m?jsx?$/,
     include: [root],
     use: {
@@ -79,7 +80,7 @@ export function webpackConfig(options: WebpackConfigOptions) {
     plugins.push(new BundleAnalyzerPlugin());
   }
 
-  const webpackConfig: WebpackConfiguration = {
+  const webpackConfig: webpack.Configuration = {
     mode: mode ?? isDev ? 'development' : 'production',
     context,
     entry,
