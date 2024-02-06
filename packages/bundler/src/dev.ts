@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
+import * as webpack from 'webpack';
+import * as WebpackDevServer from 'webpack-dev-server';
 
 import type { CliOptions } from './types';
 import { getUserConfig } from './getConfig';

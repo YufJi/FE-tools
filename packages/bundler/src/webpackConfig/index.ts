@@ -1,5 +1,5 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as path from 'path';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { WebpackConfiguration, WebpackConfigOptions } from '../types';
 import { makeArray } from '../utils';
