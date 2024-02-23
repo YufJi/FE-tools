@@ -1,11 +1,10 @@
 import * as webpack from 'webpack';
 import { EsbuildPlugin } from 'esbuild-loader';
 import type {
-  WebpackConfiguration,
   WebpackConfigOptions
 } from '../types';
 
-export function prodConfig(webpackConfig: WebpackConfiguration, options: WebpackConfigOptions) {
+export function prodConfig(webpackConfig: webpack.Configuration, options: WebpackConfigOptions) {
   const { config } = options;
   const {
     devtool,

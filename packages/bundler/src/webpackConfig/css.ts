@@ -1,7 +1,6 @@
 import * as webpack from 'webpack';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import type { 
-  WebpackConfiguration, 
   WebpackConfigOptions 
 } from '../types';
 
@@ -13,7 +12,7 @@ const DEFAULT_BROWSERS = [
   'not ie < 9',
 ];
 
-export function cssConfig(webpackConfig: WebpackConfiguration, options: WebpackConfigOptions) {
+export function cssConfig(webpackConfig: webpack.Configuration, options: WebpackConfigOptions) {
   const isDev = process.env.NODE_ENV === 'development';
 
   const { config } = options;

@@ -1,9 +1,9 @@
+import * as webpack from 'webpack';
 import type {
-  WebpackConfiguration,
   WebpackConfigOptions
 } from '../types';
 
-export function devConfig(webpackConfig: WebpackConfiguration, options: WebpackConfigOptions) {
+export function devConfig(webpackConfig: webpack.Configuration, options: WebpackConfigOptions) {
   const { config } = options;
   const {
     devtool = 'eval',
