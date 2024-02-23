@@ -26,7 +26,7 @@ export interface Config {
   externals?: WebpackConfiguration['externals'];
   publicPath?: string;
   dest?: string;
-  configWebpack?: (config: WebpackConfiguration) => void;
+  configureWebpack?: (config: WebpackConfiguration) => void;
   extraTranspileIncludes?: Array<string | RegExp>;
   tsConfigFile?: string;
   hash?: boolean;
@@ -60,7 +60,7 @@ export interface Config {
   devtool?: WebpackConfiguration['devtool'];
   analyzer?: boolean;
   extraPlugins?: webpack.WebpackPluginInstance[];
-  extarRules?: webpack.RuleSetRule[];
+  extraRules?: webpack.RuleSetRule[];
 }
 
 type CssLoaderModules =
