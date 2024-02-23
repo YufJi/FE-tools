@@ -23,9 +23,9 @@ export function webpackConfig(options: WebpackConfigOptions) {
     alias,
     tsConfigFile = 'tsconfig.json',
     extraTranspileIncludes,
-    configWebpack,
+    configureWebpack,
     analyzer,
-    extarRules = [],
+    extraRules = [],
     extraPlugins = []
   } = config;
 
@@ -130,7 +130,7 @@ export function webpackConfig(options: WebpackConfigOptions) {
     module: {
       rules: [
         ...rules,
-        ...extarRules
+        ...extraRules
       ],
     },
     plugins: [
@@ -142,8 +142,8 @@ export function webpackConfig(options: WebpackConfigOptions) {
 
   cssConfig(webpackConfig, options);
 
-  if (configWebpack) {
-    configWebpack(webpackConfig);
+  if (configureWebpack) {
+    configureWebpack(webpackConfig);
   }
 
   if (isDev) {
