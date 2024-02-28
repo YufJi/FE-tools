@@ -1,6 +1,6 @@
 {
   "name": "curiosity-bundler",
-  "version": "0.2.4",
+  "version": "0.2.5-alpha.1",
   "description": "Unique webpack wrapper for curiosity.",
   "bin": {
     "curiosity-bundler": "./lib/index.js"
@@ -8,7 +8,8 @@
   "main": "./lib/index.js",
   "scripts": {
     "watch": "tsc -w",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@babel/core": "^7.23.9",
