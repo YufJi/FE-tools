@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "tsc -w",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "pnpm build"
   },
   "repository": {
     "type": "git",
